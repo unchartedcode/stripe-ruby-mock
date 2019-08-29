@@ -1091,50 +1091,92 @@ module StripeMock
 
     def self.mock_payment_intent(params = {})
       payment_intent_id = params[:id] || "pi_1EwXFB2eZvKYlo2CggNnFBo8"
+      amount = params[:amount] || 49900
       currency = params[:currency] || StripeMock.default_currency
       {
-        id: payment_intent_id,
-        object: "payment_intent",
-        amount: 49900,
-        amount_capturable: 0,
-        amount_received: 0,
-        application: nil,
-        application_fee_amount: nil,
-        canceled_at: nil,
-        cancellation_reason: nil,
-        capture_method: "automatic",
-        charges: {
-          object: "list",
-          data: [],
-          has_more: false,
-          total_count: 0,
-          url: "/v1/charges?payment_intent=pi_1EwXFB2eZvKYlo2CggNnFBo8"
-        },
-        client_secret: "pi_1EwXFB2eZvKYlo2CggNnFBo8_secret_vOMkpqZu8ca7hxhfiO80tpT3v",
-        confirmation_method: "manual",
-        created: 1563208901,
-        currency: "gbp",
-        customer: nil,
-        description: nil,
-        invoice: nil,
-        last_payment_error: nil,
-        livemode: false,
-        metadata: {},
-        next_action: nil,
-        on_behalf_of: nil,
-        payment_method: nil,
-        payment_method_types: [
-          "card"
-        ],
-        receipt_email: nil,
-        review: nil,
-        setup_future_usage: nil,
-        shipping: nil,
-        source: nil,
-        statement_descriptor: nil,
-        status: "requires_action",
-        transfer_data: nil,
-        transfer_group: nil
+          id: payment_intent_id,
+          object: "payment_intent",
+          amount: amount,
+          amount_capturable: 0,
+          amount_received: 0,
+          application: nil,
+          application_fee_amount: nil,
+          canceled_at: nil,
+          cancellation_reason: nil,
+          capture_method: "automatic",
+          charges: {
+              object: "list",
+              data: [
+                  {
+                      id: "ch_1ExXjLL2DI6wht39e2fU80b4",
+                      paid: true,
+                      amount: 34500,
+                      object: "charge",
+                      status: "succeeded",
+                      captured: true,
+                      currency: "eur",
+                      customer: nil,
+                      refunded: false,
+                      payment_intent: payment_intent_id,
+                      payment_method: nil,
+                      amount_refunded: 0,
+                      balance_transaction: "txn_2dyYXXP90MN26R"
+                  }
+              ],
+              has_more: false,
+              total_count: 1,
+              url: "/v1/charges?payment_intent=pi_1EwXFB2eZvKYlo2CggNnFBo8"
+          },
+          client_secret: "pi_1EwXFB2eZvKYlo2CggNnFBo8_secret_vOMkpqZu8ca7hxhfiO80tpT3v",
+          confirmation_method: "manual",
+          created: 1563208901,
+          currency: "gbp",
+          customer: nil,
+          description: nil,
+          invoice: nil,
+          last_payment_error: nil,
+          livemode: false,
+          metadata: {},
+          next_action: { type: "use_stripe_sdk" },
+          on_behalf_of: nil,
+          payment_method: nil,
+          payment_method_types: [
+              "card"
+          ],
+          receipt_email: nil,
+          review: nil,
+          setup_future_usage: nil,
+          shipping: nil,
+          source: nil,
+          statement_descriptor: nil,
+          status: "requires_action",
+          transfer_data: nil,
+          transfer_group: nil
+      }.merge(params)
+    end
+
+    def self.mock_payment_method(params = {})
+      payment_method_id = params[:id] || "pm_1ExEuFL2DI6wht39WNJgbybl"
+      {
+          id: payment_method_id,
+          object: "payment_method",
+          type: "card",
+          billing_details: {},
+          card: {
+              brand: "visa",
+              checks: { address_line1_check: nil, address_postal_code_check: nil, cvc_check: "pass" },
+              country: "FR",
+              exp_month: 2,
+              exp_year: 2022,
+              fingerprint: "Hr3Ly5z5IYxsokWA",
+              funding: "credit",
+              last4: "3155",
+              three_d_secure_usage: { supported: true }
+          },
+          customer: params[:customer] || "cus_FRncA7TzYgyplJ",
+          metadata: {
+            "order_id": "123456789"
+          }
       }.merge(params)
     end
   end
