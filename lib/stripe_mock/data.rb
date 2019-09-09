@@ -163,7 +163,12 @@ module StripeMock
           url: "/v1/customers/#{cus_id}/subscriptions",
           data: []
         },
-        default_source: nil
+        default_source: nil,
+        invoice_settings: {
+          custom_fields: nil,
+          default_payment_method: nil,
+          footer: nil
+        }
       }.merge(params)
     end
 
@@ -229,25 +234,7 @@ module StripeMock
         metadata: {
         },
         payment_method: "card_15g4ln2mRcN1dGv7t7l9aZld",
-        payment_method_details: {
-          "card": {
-            brand: "visa",
-            checks: {
-              address_line1_check: nil,
-              address_postal_code_check: nil,
-              cvc_check: nil
-            },
-            country: "US",
-            exp_month: 12,
-            exp_year: 2013,
-            fingerprint: "3TQGpK9JoY1GgXPw",
-            funding: "credit",
-            last4: "4242",
-            three_d_secure: nil,
-            wallet: nil
-          },
-          type: "card"
-        }
+        payment_method_details: self.mock_payment_method
       }.merge(params)
     end
 
