@@ -234,7 +234,7 @@ module StripeMock
         metadata: {
         },
         payment_method: "card_15g4ln2mRcN1dGv7t7l9aZld",
-        payment_method_details: self.mock_payment_method
+        payment_method_details: self.mock_payment_method(type: 'card')
       }.merge(params)
     end
 
