@@ -163,12 +163,7 @@ module StripeMock
           url: "/v1/customers/#{cus_id}/subscriptions",
           data: []
         },
-        default_source: nil,
-        invoice_settings: {
-          custom_fields: nil,
-          default_payment_method: nil,
-          footer: nil
-        }
+        default_source: nil
       }.merge(params)
     end
 
